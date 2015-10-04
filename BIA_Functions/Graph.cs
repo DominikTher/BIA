@@ -35,7 +35,7 @@ namespace BIA_Functions
                         (x, y) => Calculate(new double[] { x, y }),
                         ymin: y_min, ymax: y_max,
                         xmin: x_min, xmax: x_max,
-                        colormap: Colormaps.Jet
+                        colormap: Colormaps.ILNumerics
                         );
 
             plotCube.Add(surface);
