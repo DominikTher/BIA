@@ -140,5 +140,45 @@ namespace BIA_Functions
 
             return value;
         }
+
+        /*
+        * Functions for protocol No.3
+        **/
+
+        private double f1(double x1)
+        {
+            return x1;
+        }
+
+        private double g(double x2)
+        {
+            return 10 + x2;
+        }
+
+        private double Alpha(double x2)
+        {
+            var g1 = 11;
+            var g2 = 12;
+
+            return 0.25 + (3.75 * ((g(x2) - g2) / (g1 - g2)));
+        }
+
+        [FunctionName("Multipurpose optimization problem - parent borderline")]
+        public double ParentBorderline(double[] x)
+        {
+            var value = 0.0;
+            var F = 0.5;
+
+            value += (Math.Pow(f1(x[0]) / g(x[1]), Alpha(x[1])) - (
+                       (f1(x[0]) / g(x[1])) *
+                               Math.Sin(Math.PI * F * f1(x[0]) * g(x[1]))
+                       ));
+
+            return value;
+        }
+
+        /*
+        * END OF Functions for protocol No.3
+        **/
     }
 }

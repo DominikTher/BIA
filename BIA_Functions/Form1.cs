@@ -30,6 +30,11 @@ namespace BIA_Functions
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            PrintGraph();
+        }
+
+        private void PrintGraph()
+        {
             if (graph == null)
             {
                 // TODO: Load or check null?
@@ -44,7 +49,7 @@ namespace BIA_Functions
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
             ilPanel1.Scene = graph.Print();
-            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
+            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1, 0, 0), Math.PI / 2); // TODO: WTF is this?
             ilPanel1.Refresh();
         }
 
@@ -68,6 +73,11 @@ namespace BIA_Functions
         private float TextToFloat(string text)
         {
             return Convert.ToSingle(text);
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            PrintGraph();
         }
     }
 }

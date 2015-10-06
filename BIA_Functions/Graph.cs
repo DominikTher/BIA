@@ -41,8 +41,8 @@ namespace BIA_Functions
 
             var surface = new ILSurface(
                         (x, y) => Calculate(new double[] { x, y }),
-                        ymin: y_min, ymax: y_max,
                         xmin: x_min, xmax: x_max,
+                        ymin: y_min, ymax: y_max,
                         colormap: Colormaps.ILNumerics
                         );
 
