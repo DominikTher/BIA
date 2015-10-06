@@ -17,6 +17,8 @@ namespace BIA_Functions
 
         public MethodInfo MethodInfo { get; private set; }
 
+        private TestFunctions testFunctions = null;
+
         public Graph(float xmin, float xmax, float ymin, float ymax, MethodInfo methodInfo)
         {
             x_min = xmin;
@@ -46,10 +48,14 @@ namespace BIA_Functions
 
         private float Calculate(double[] x)
         {
-            object instance = Activator.CreateInstance(typeof(TestFunctions));
-            var o = MethodInfo.Invoke(instance, new object[] { x });
+            if (testFunctions == null)
+            {
+                testFunctions = Activator.CreateInstance(typeof(TestFunctions)) as TestFunctions;
+            }
 
-            return Convert.ToSingle(o);
+            var returnedValue = MethodInfo.Invoke(testFunctions, new object[] { x });
+
+            return Convert.ToSingle(returnedValue);
         }
     }
 }
