@@ -11,6 +11,8 @@ namespace BIA_Functions
     {
         private Dictionary<string, MethodInfo> testFunctionsNames = new Dictionary<string, MethodInfo>();
 
+        private Graph graph = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,7 +30,13 @@ namespace BIA_Functions
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            Graph graph = new Graph(
+            if (graph == null)
+            {
+                // TODO: Load or check null?
+                graph = new Graph();
+            }
+
+            graph.Set(
                 TextToFloat(textBox1.Text),
                 TextToFloat(textBox3.Text),
                 TextToFloat(textBox2.Text),

@@ -19,7 +19,13 @@ namespace BIA_Functions
 
         private TestFunctions testFunctions = null;
 
-        public Graph(float xmin, float xmax, float ymin, float ymax, MethodInfo methodInfo)
+        public Graph()
+        {
+            // TODO: Check null ??
+            testFunctions = Activator.CreateInstance(typeof(TestFunctions)) as TestFunctions;
+        }
+
+        public void Set(float xmin, float xmax, float ymin, float ymax, MethodInfo methodInfo)
         {
             x_min = xmin;
             x_max = xmax;
@@ -48,11 +54,6 @@ namespace BIA_Functions
 
         private float Calculate(double[] x)
         {
-            if (testFunctions == null)
-            {
-                testFunctions = Activator.CreateInstance(typeof(TestFunctions)) as TestFunctions;
-            }
-
             var returnedValue = MethodInfo.Invoke(testFunctions, new object[] { x });
 
             return Convert.ToSingle(returnedValue);
