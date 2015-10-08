@@ -86,19 +86,9 @@ namespace BIA_Functions
 
         //public double Griewangks(double[] x,)
         //{
-        //    var value = 0.0;
-
-        //    for (int i = 0; i < x.Length; i++)
-        //    {
-        //        value += ((-1 * x[i]) * Math.Sin(Math.Sqrt(Math.Abs(x[i]))));
-        //    }
-
-        //    value += 1;
-
-        //    return value;
         //}
 
-        [FunctionName("Sine envelope sine wave function")] // TODO: Test with another student
+        [FunctionName("Sine envelope sine wave function")]
         public double SineEnvelopeSineWave(double[] x)
         {
             var value = 0.0;
@@ -137,6 +127,20 @@ namespace BIA_Functions
                 var tmp = Math.Pow(x[i], 2) + Math.Pow(x[i + 1], 2);
                 value += (Math.Pow(tmp, 1.0 / 4.0) *
                             Math.Pow(Math.Sin(50 * Math.Pow(tmp, 1.0 / 10.0)), 2) + 1);
+            }
+
+            return value;
+        }
+
+        [FunctionName("Ackley’s function I")]
+        public double AckleysFunctionI(double[] x)
+        {
+            var value = 0.0;
+
+            for (int i = 0; i < x.Length - 1; i++)
+            {
+                value += (Math.Pow(Math.E, -0.2) * Math.Sqrt(Math.Pow(x[i], 2) + Math.Pow(x[i + 1], 2)) +
+                            (3 * (Math.Cos(2 * x[i]) + Math.Sin(2 * x[i + 1]))));
             }
 
             return value;
