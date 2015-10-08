@@ -43,14 +43,14 @@ namespace BIA_Functions
             return value;
         }
 
-        [FunctionName("4th De Jong")] // TODO: Test with another student if the graph result is same
+        [FunctionName("4th De Jong")]
         public double DeJongNo4(double[] x)
         {
             var value = 0.0;
 
             for (int i = 0; i < x.Length; i++)
             {
-                value += (i * Math.Pow(x[i], 4));
+                value += ((i + 1) * Math.Pow(x[i], 4));
             }
 
             return value;
