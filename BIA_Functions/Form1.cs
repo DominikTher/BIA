@@ -78,11 +78,11 @@ namespace BIA_Functions
         {
             if (comboBox1.SelectedItem.ToString() == "Multipurpose optimization problem - parent borderline")
             {
-                tb_xmin.Text = "1";
-                tb_xmax.Text = "4";
+                tb_xmin.Text = "0";
+                tb_xmax.Text = "1,25";
 
-                tb_ymin.Text = "-1";
-                tb_ymax.Text = "-4";
+                tb_ymin.Text = "1";
+                tb_ymax.Text = "0,999";
             }
             else
             {
