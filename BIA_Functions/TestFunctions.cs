@@ -125,8 +125,8 @@ namespace BIA_Functions
             for (int i = 0; i < x.Length - 1; i++)
             {
                 var tmp = Math.Pow(x[i], 2) + Math.Pow(x[i + 1], 2);
-                value += (Math.Pow(tmp, 1.0 / 4.0) *
-                            Math.Pow(Math.Sin(50 * Math.Pow(tmp, 1.0 / 10.0)), 2) + 1);
+                value += (Math.Pow(tmp, 0.25) *
+                            Math.Pow(Math.Sin(50 * Math.Pow(tmp, 0.1)), 2) + 1);
             }
 
             return value;
