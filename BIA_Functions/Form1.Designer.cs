@@ -37,20 +37,24 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.tb_xmin = new System.Windows.Forms.TextBox();
+            this.tb_ymin = new System.Windows.Forms.TextBox();
+            this.tb_xmax = new System.Windows.Forms.TextBox();
+            this.tb_ymax = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.Controls.Add(this.ilPanel1);
-            this.panel1.Location = new System.Drawing.Point(321, 12);
+            this.panel1.Location = new System.Drawing.Point(323, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(600, 400);
+            this.panel1.Size = new System.Drawing.Size(907, 493);
             this.panel1.TabIndex = 0;
             // 
             // ilPanel1
@@ -63,8 +67,9 @@
             this.ilPanel1.Name = "ilPanel1";
             this.ilPanel1.Rectangle = ((System.Drawing.RectangleF)(resources.GetObject("ilPanel1.Rectangle")));
             this.ilPanel1.ShowUIControls = false;
-            this.ilPanel1.Size = new System.Drawing.Size(600, 400);
+            this.ilPanel1.Size = new System.Drawing.Size(907, 493);
             this.ilPanel1.TabIndex = 0;
+            this.ilPanel1.Load += new System.EventHandler(this.ilPanel1_Load);
             // 
             // comboBox1
             // 
@@ -120,58 +125,61 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "y max:";
             // 
-            // textBox1
+            // tb_xmin
             // 
-            this.textBox1.Location = new System.Drawing.Point(52, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(94, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "-2";
+            this.tb_xmin.Location = new System.Drawing.Point(52, 47);
+            this.tb_xmin.Name = "tb_xmin";
+            this.tb_xmin.Size = new System.Drawing.Size(94, 20);
+            this.tb_xmin.TabIndex = 7;
+            this.tb_xmin.Text = "-2";
             // 
-            // textBox2
+            // tb_ymin
             // 
-            this.textBox2.Location = new System.Drawing.Point(52, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(94, 20);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.Text = "-2";
+            this.tb_ymin.Location = new System.Drawing.Point(52, 73);
+            this.tb_ymin.Name = "tb_ymin";
+            this.tb_ymin.Size = new System.Drawing.Size(94, 20);
+            this.tb_ymin.TabIndex = 8;
+            this.tb_ymin.Text = "-2";
             // 
-            // textBox3
+            // tb_xmax
             // 
-            this.textBox3.Location = new System.Drawing.Point(214, 47);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(86, 20);
-            this.textBox3.TabIndex = 9;
-            this.textBox3.Text = "2";
+            this.tb_xmax.Location = new System.Drawing.Point(214, 47);
+            this.tb_xmax.Name = "tb_xmax";
+            this.tb_xmax.Size = new System.Drawing.Size(86, 20);
+            this.tb_xmax.TabIndex = 9;
+            this.tb_xmax.Text = "2";
             // 
-            // textBox4
+            // tb_ymax
             // 
-            this.textBox4.Location = new System.Drawing.Point(214, 76);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(86, 20);
-            this.textBox4.TabIndex = 10;
-            this.textBox4.Text = "2";
+            this.tb_ymax.Location = new System.Drawing.Point(214, 76);
+            this.tb_ymax.Name = "tb_ymax";
+            this.tb_ymax.Size = new System.Drawing.Size(86, 20);
+            this.tb_ymax.TabIndex = 10;
+            this.tb_ymax.Text = "2";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(225, 389);
+            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button1.Location = new System.Drawing.Point(214, 121);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 32);
             this.button1.TabIndex = 11;
             this.button1.Text = "Calculate";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 427);
+            this.ClientSize = new System.Drawing.Size(1242, 517);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tb_ymax);
+            this.Controls.Add(this.tb_xmax);
+            this.Controls.Add(this.tb_ymin);
+            this.Controls.Add(this.tb_xmin);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -181,7 +189,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "BIA";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -198,10 +205,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tb_xmin;
+        private System.Windows.Forms.TextBox tb_ymin;
+        private System.Windows.Forms.TextBox tb_xmax;
+        private System.Windows.Forms.TextBox tb_ymax;
         private System.Windows.Forms.Button button1;
     }
 }

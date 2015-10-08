@@ -11,16 +11,21 @@ namespace BIA_Functions
     {
         private Dictionary<string, MethodInfo> testFunctionsNames = new Dictionary<string, MethodInfo>();
 
-        private Graph graph = null;
+        private Graph graph = new Graph();
+
+        private Form1 form = null;
 
         public Form1()
         {
             InitializeComponent();
+            form = this;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ilPanel1_Load(object sender, EventArgs e)
         {
             FillComboBox();
+            form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
+            PrintGraph();
         }
 
         /// <summary>
@@ -28,28 +33,17 @@ namespace BIA_Functions
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PrintGraph();
-        }
-
         private void PrintGraph()
         {
-            if (graph == null)
-            {
-                // TODO: Load or check null?
-                graph = new Graph();
-            }
-
             graph.Set(
-                TextToFloat(textBox1.Text),
-                TextToFloat(textBox3.Text),
-                TextToFloat(textBox2.Text),
-                TextToFloat(textBox4.Text),
+                TextToFloat(tb_xmin.Text),
+                TextToFloat(tb_xmax.Text),
+                TextToFloat(tb_ymin.Text),
+                TextToFloat(tb_ymax.Text),
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
             ilPanel1.Scene = graph.Print();
-            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1, 0, 0), Math.PI / 2); // TODO: WTF is this?
+            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
             ilPanel1.Refresh();
         }
 
@@ -75,9 +69,37 @@ namespace BIA_Functions
             return Convert.ToSingle(text);
         }
 
-        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             PrintGraph();
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString() == "Multipurpose optimization problem - parent borderline")
+            {
+                tb_xmin.Text = "1";
+                tb_xmax.Text = "4";
+
+                tb_ymin.Text = "-1";
+                tb_ymax.Text = "-4";
+            }
+            else
+            {
+                DefaultFunctionValues();
+            }
+
+            form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
+            PrintGraph();
+        }
+
+        private void DefaultFunctionValues()
+        {
+            tb_xmin.Text = "-2";
+            tb_xmax.Text = "2";
+
+            tb_ymin.Text = "-2";
+            tb_ymax.Text = "2";
         }
     }
 }
