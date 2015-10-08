@@ -19,10 +19,6 @@ namespace BIA_Functions
 
         private TestFunctions testFunctions = new TestFunctions();
 
-        public Graph()
-        {
-        }
-
         public void Set(float xmin, float xmax, float ymin, float ymax, MethodInfo methodInfo)
         {
             x_min = xmin;
@@ -41,7 +37,7 @@ namespace BIA_Functions
                         (x, y) => Calculate(new double[] { x, y }),
                         xmin: x_min, xmax: x_max,
                         ymin: y_min, ymax: y_max,
-                        colormap: Colormaps.Jet
+                        colormap: Colormaps.ILNumerics
                         );
 
             plotCube.Add(surface);

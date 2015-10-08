@@ -107,9 +107,10 @@ namespace BIA_Functions
             {
                 value += (0.5 + (
                     (Math.Pow(
-                        Math.Pow(x[i], 2) +
-                        Math.Pow(x[i + 1], 2) -
-                        0.5
+                        Math.Sin(
+                            Math.Pow(x[i], 2) +
+                            Math.Pow(x[i + 1], 2) -
+                            0.5)
                         , 2))
                         /
                         (1 + (

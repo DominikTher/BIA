@@ -19,20 +19,14 @@ namespace BIA_Functions
         {
             InitializeComponent();
             form = this;
+            FillComboBox();
         }
 
         private void ilPanel1_Load(object sender, EventArgs e)
         {
-            FillComboBox();
-            form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
             PrintGraph();
         }
 
-        /// <summary>
-        /// Print graph for specific function
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PrintGraph()
         {
             graph.Set(
@@ -45,6 +39,26 @@ namespace BIA_Functions
             ilPanel1.Scene = graph.Print();
             ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
             ilPanel1.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PrintGraph();
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString() == "Multipurpose optimization problem - parent borderline")
+            {
+                BorderLineValues();
+            }
+            else
+            {
+                DefaultFunctionValues();
+            }
+
+            form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
+            PrintGraph();
         }
 
         private void FillComboBox()
@@ -69,30 +83,6 @@ namespace BIA_Functions
             return Convert.ToSingle(text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            PrintGraph();
-        }
-
-        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedItem.ToString() == "Multipurpose optimization problem - parent borderline")
-            {
-                tb_xmin.Text = "0";
-                tb_xmax.Text = "1,25";
-
-                tb_ymin.Text = "1";
-                tb_ymax.Text = "0,999";
-            }
-            else
-            {
-                DefaultFunctionValues();
-            }
-
-            form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
-            PrintGraph();
-        }
-
         private void DefaultFunctionValues()
         {
             tb_xmin.Text = "-2";
@@ -100,6 +90,15 @@ namespace BIA_Functions
 
             tb_ymin.Text = "-2";
             tb_ymax.Text = "2";
+        }
+
+        private void BorderLineValues()
+        {
+            tb_xmin.Text = "0";
+            tb_xmax.Text = "1,25";
+
+            tb_ymin.Text = "1";
+            tb_ymax.Text = "0,999";
         }
     }
 }
