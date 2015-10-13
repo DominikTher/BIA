@@ -33,16 +33,14 @@
             this.ilPanel1 = new ILNumerics.Drawing.ILPanel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tb_xmin = new System.Windows.Forms.TextBox();
-            this.tb_ymin = new System.Windows.Forms.TextBox();
-            this.tb_xmax = new System.Windows.Forms.TextBox();
-            this.tb_ymax = new System.Windows.Forms.TextBox();
+            this.tb_min = new System.Windows.Forms.TextBox();
+            this.tb_max = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.individualsNo = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -89,107 +87,79 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Select function:";
             // 
-            // label2
+            // tb_min
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "x min:";
+            this.tb_min.Location = new System.Drawing.Point(38, 19);
+            this.tb_min.Name = "tb_min";
+            this.tb_min.Size = new System.Drawing.Size(94, 20);
+            this.tb_min.TabIndex = 7;
+            this.tb_min.Text = "-2";
             // 
-            // label3
+            // tb_max
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(171, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "x max:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 76);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "y min:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(171, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "y max:";
-            // 
-            // tb_xmin
-            // 
-            this.tb_xmin.Location = new System.Drawing.Point(52, 47);
-            this.tb_xmin.Name = "tb_xmin";
-            this.tb_xmin.Size = new System.Drawing.Size(94, 20);
-            this.tb_xmin.TabIndex = 7;
-            this.tb_xmin.Text = "-2";
-            // 
-            // tb_ymin
-            // 
-            this.tb_ymin.Location = new System.Drawing.Point(52, 73);
-            this.tb_ymin.Name = "tb_ymin";
-            this.tb_ymin.Size = new System.Drawing.Size(94, 20);
-            this.tb_ymin.TabIndex = 8;
-            this.tb_ymin.Text = "-2";
-            // 
-            // tb_xmax
-            // 
-            this.tb_xmax.Location = new System.Drawing.Point(214, 47);
-            this.tb_xmax.Name = "tb_xmax";
-            this.tb_xmax.Size = new System.Drawing.Size(86, 20);
-            this.tb_xmax.TabIndex = 9;
-            this.tb_xmax.Text = "2";
-            // 
-            // tb_ymax
-            // 
-            this.tb_ymax.Location = new System.Drawing.Point(214, 76);
-            this.tb_ymax.Name = "tb_ymax";
-            this.tb_ymax.Size = new System.Drawing.Size(86, 20);
-            this.tb_ymax.TabIndex = 10;
-            this.tb_ymax.Text = "2";
+            this.tb_max.Location = new System.Drawing.Point(167, 19);
+            this.tb_max.Name = "tb_max";
+            this.tb_max.Size = new System.Drawing.Size(86, 20);
+            this.tb_max.TabIndex = 9;
+            this.tb_max.Text = "2";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(214, 121);
+            this.button1.Location = new System.Drawing.Point(214, 139);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 32);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Calculate";
+            this.button1.Text = "Generate";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // individualsNo
+            // 
+            this.individualsNo.Location = new System.Drawing.Point(126, 39);
+            this.individualsNo.Name = "individualsNo";
+            this.individualsNo.Size = new System.Drawing.Size(174, 20);
+            this.individualsNo.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 42);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Number of individuals";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tb_min);
+            this.groupBox1.Controls.Add(this.tb_max);
+            this.groupBox1.Location = new System.Drawing.Point(15, 65);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(285, 56);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Range";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 517);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.individualsNo);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.tb_ymax);
-            this.Controls.Add(this.tb_xmax);
-            this.Controls.Add(this.tb_ymin);
-            this.Controls.Add(this.tb_xmin);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "BIA";
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,15 +171,12 @@
         private ILNumerics.Drawing.ILPanel ilPanel1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tb_xmin;
-        private System.Windows.Forms.TextBox tb_ymin;
-        private System.Windows.Forms.TextBox tb_xmax;
-        private System.Windows.Forms.TextBox tb_ymax;
+        private System.Windows.Forms.TextBox tb_min;
+        private System.Windows.Forms.TextBox tb_max;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox individualsNo;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

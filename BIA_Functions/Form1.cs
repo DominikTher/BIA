@@ -30,10 +30,8 @@ namespace BIA_Functions
         private void PrintGraph()
         {
             graph.Set(
-                TextToFloat(tb_xmin.Text),
-                TextToFloat(tb_xmax.Text),
-                TextToFloat(tb_ymin.Text),
-                TextToFloat(tb_ymax.Text),
+                TextToFloat(tb_min.Text),
+                TextToFloat(tb_max.Text),
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
             ilPanel1.Scene = graph.Print();
@@ -85,20 +83,17 @@ namespace BIA_Functions
 
         private void DefaultFunctionValues()
         {
-            tb_xmin.Text = "-2";
-            tb_xmax.Text = "2";
-
-            tb_ymin.Text = "-2";
-            tb_ymax.Text = "2";
+            tb_min.Text = "-2";
+            tb_max.Text = "2";
         }
 
         private void BorderLineValues()
         {
-            tb_xmin.Text = "0";
-            tb_xmax.Text = "1,25";
+            tb_min.Text = "0";
+            tb_max.Text = "1,25";
 
-            tb_ymin.Text = "1";
-            tb_ymax.Text = "0,999";
+            //tb_ymin.Text = "1";
+            //tb_ymax.Text = "0,999";
         }
     }
 }

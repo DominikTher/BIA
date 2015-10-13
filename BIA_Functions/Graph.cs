@@ -7,24 +7,18 @@ namespace BIA_Functions
 {
     internal class Graph
     {
-        public float x_min { get; private set; }
+        public float Min { get; private set; }
 
-        public float x_max { get; private set; }
-
-        public float y_min { get; private set; }
-
-        public float y_max { get; private set; }
+        public float Max { get; private set; }
 
         public MethodInfo MethodInfo { get; private set; }
 
         private TestFunctions testFunctions = new TestFunctions();
 
-        public void Set(float xmin, float xmax, float ymin, float ymax, MethodInfo methodInfo)
+        public void Set(float min, float max, MethodInfo methodInfo)
         {
-            x_min = xmin;
-            x_max = xmax;
-            y_min = ymin;
-            y_max = ymax;
+            Min = min;
+            Max = max;
             MethodInfo = methodInfo;
         }
 
@@ -35,8 +29,8 @@ namespace BIA_Functions
 
             var surface = new ILSurface(
                         (x, y) => Calculate(new double[] { x, y }),
-                        xmin: x_min, xmax: x_max, xlen: 80,
-                        ymin: y_min, ymax: y_max, ylen: 80,
+                        xmin: Min, xmax: Max, xlen: 80,
+                        ymin: Min, ymax: Max, ylen: 80,
                         colormap: Colormaps.ILNumerics
                         );
 
