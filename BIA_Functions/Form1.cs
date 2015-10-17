@@ -38,8 +38,7 @@ namespace BIA_Functions
             graph.SetSurface();
             graph.SetIndividuals();
             ilPanel1.Scene = graph.GetScene();
-            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
-            ilPanel1.Refresh();
+            RefreshGraph();
 
             dataGridView1.DataSource = graph.Individuals;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -100,6 +99,28 @@ namespace BIA_Functions
 
             //tb_ymin.Text = "1";
             //tb_ymax.Text = "0,999";
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = sender as DataGridView;
+
+            if (dataGridView.CurrentRow.Selected)
+            {
+                int rowindex = dataGridView.CurrentCell.RowIndex;
+                var id = dataGridView.Rows[rowindex].Cells[0].Value.ToString();
+
+                //var scenePosition = ilPanel1.Scene.First<ILPlotCube>().;
+                graph.MarkIndividual(Convert.ToInt32(id));
+                ilPanel1.Scene.First<ILPlotCube>().Reset();
+                RefreshGraph();
+            }
+        }
+
+        private void RefreshGraph()
+        {
+            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
+            ilPanel1.Refresh();
         }
     }
 }

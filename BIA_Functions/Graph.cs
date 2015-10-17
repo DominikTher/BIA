@@ -41,7 +41,7 @@ namespace BIA_Functions
         {
             points = new ILPoints();
             points.Size = 8;
-            points.Color = Color.DarkRed;
+            points.Color = null;
 
             scene = new ILScene();
             plotCube = new ILPlotCube(twoDMode: false);
@@ -60,9 +60,25 @@ namespace BIA_Functions
         {
             GenerateIndividuals(surface);
 
+            for (int i = 0; i < Individuals.Count; i++)
+            {
+                points.Colors.Update(i, Color.DarkBlue);
+            }
+
             if (Individuals.Any())
             {
                 plotCube.Add(points);
+            }
+        }
+
+        public void MarkIndividual(int individualId)
+        {
+            for (int i = 0; i < Individuals.Count; i++)
+            {
+                if (i == individualId)
+                    points.Colors.Update(i, Color.Olive);
+                else
+                    points.Colors.Update(i, Color.DarkBlue);
             }
         }
 
@@ -93,7 +109,7 @@ namespace BIA_Functions
                 {
                     randomPointsIndex.Add(index);
                     var vector = surface.Wireframe.Positions.GetPositionAt(index);
-                    var individual = new Individual { X = vector.X, Y = vector.Y, Fitness = vector.Z };
+                    var individual = new Individual { Id = i, X = vector.X, Y = vector.Y, Fitness = vector.Z };
                     Individuals.Add(individual);
                     points.Positions.Update(i++, 1, new float[] { individual.X, individual.Y, individual.Fitness });
                 }
