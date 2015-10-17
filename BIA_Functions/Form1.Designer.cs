@@ -39,8 +39,10 @@
             this.individualsNo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -50,9 +52,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.Controls.Add(this.ilPanel1);
-            this.panel1.Location = new System.Drawing.Point(323, 12);
+            this.panel1.Location = new System.Drawing.Point(306, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(907, 493);
+            this.panel1.Size = new System.Drawing.Size(745, 494);
             this.panel1.TabIndex = 0;
             // 
             // ilPanel1
@@ -65,7 +67,7 @@
             this.ilPanel1.Name = "ilPanel1";
             this.ilPanel1.Rectangle = ((System.Drawing.RectangleF)(resources.GetObject("ilPanel1.Rectangle")));
             this.ilPanel1.ShowUIControls = false;
-            this.ilPanel1.Size = new System.Drawing.Size(907, 493);
+            this.ilPanel1.Size = new System.Drawing.Size(745, 494);
             this.ilPanel1.TabIndex = 0;
             this.ilPanel1.Load += new System.EventHandler(this.ilPanel1_Load);
             // 
@@ -122,6 +124,7 @@
             this.individualsNo.Name = "individualsNo";
             this.individualsNo.Size = new System.Drawing.Size(174, 20);
             this.individualsNo.TabIndex = 12;
+            this.individualsNo.Text = "0";
             // 
             // label6
             // 
@@ -143,11 +146,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Range";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(15, 305);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(285, 201);
+            this.dataGridView1.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1242, 517);
+            this.ClientSize = new System.Drawing.Size(1063, 518);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.individualsNo);
@@ -160,6 +174,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +192,7 @@
         private System.Windows.Forms.TextBox individualsNo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

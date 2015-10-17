@@ -32,11 +32,17 @@ namespace BIA_Functions
             graph.Set(
                 TextToFloat(tb_min.Text),
                 TextToFloat(tb_max.Text),
+                Convert.ToInt32(individualsNo.Text),
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
-            ilPanel1.Scene = graph.Print();
+            graph.SetSurface();
+            graph.SetIndividuals();
+            ilPanel1.Scene = graph.GetScene();
             ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
             ilPanel1.Refresh();
+
+            dataGridView1.DataSource = graph.Individuals;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void button1_Click(object sender, EventArgs e)
