@@ -76,7 +76,7 @@ namespace BIA_Functions
             for (int i = 0; i < Individuals.Count; i++)
             {
                 if (i == individualId)
-                    points.Colors.Update(i, Color.OrangeRed);
+                    points.Colors.Update(i, Color.LightGray);
                 else
                     points.Colors.Update(i, Color.Black);
             }
