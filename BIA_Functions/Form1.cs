@@ -110,10 +110,9 @@ namespace BIA_Functions
                 int rowindex = dataGridView.CurrentCell.RowIndex;
                 var id = dataGridView.Rows[rowindex].Cells[0].Value.ToString();
 
-                //var scenePosition = ilPanel1.Scene.First<ILPlotCube>().;
                 graph.MarkIndividual(Convert.ToInt32(id));
-                ilPanel1.Scene.First<ILPlotCube>().Reset();
-                RefreshGraph();
+
+                ilPanel1.Refresh();
             }
         }
 

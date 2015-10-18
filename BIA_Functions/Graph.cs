@@ -40,7 +40,7 @@ namespace BIA_Functions
         public void SetSurface()
         {
             points = new ILPoints();
-            points.Size = 8;
+            points.Size = 10;
             points.Color = null;
 
             scene = new ILScene();
@@ -62,7 +62,7 @@ namespace BIA_Functions
 
             for (int i = 0; i < Individuals.Count; i++)
             {
-                points.Colors.Update(i, Color.DarkBlue);
+                points.Colors.Update(i, Color.Black);
             }
 
             if (Individuals.Any())
@@ -76,10 +76,12 @@ namespace BIA_Functions
             for (int i = 0; i < Individuals.Count; i++)
             {
                 if (i == individualId)
-                    points.Colors.Update(i, Color.Olive);
+                    points.Colors.Update(i, Color.OrangeRed);
                 else
-                    points.Colors.Update(i, Color.DarkBlue);
+                    points.Colors.Update(i, Color.Black);
             }
+
+            points.Configure();
         }
 
         public ILScene GetScene()
