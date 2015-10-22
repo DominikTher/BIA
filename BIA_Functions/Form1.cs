@@ -33,6 +33,7 @@ namespace BIA_Functions
                 TextToFloat(tb_min.Text),
                 TextToFloat(tb_max.Text),
                 Convert.ToInt32(individualsNo.Text),
+                chbOnlyIntegers.Checked,
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
             graph.SetSurface();
