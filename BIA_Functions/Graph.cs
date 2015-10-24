@@ -50,14 +50,18 @@ namespace BIA_Functions
             plotCube = new ILPlotCube(twoDMode: false);
 
             surface = new ILSurface(
-                            (x, y) => (float)Math.Round(Calculate(new double[] { x, y })),
+                            (x, y) =>
+                            {
+                                if (OnlyIntegers)
+                                    return (float)Math.Round(Calculate(new double[] { x, y }));
+                                else
+                                    return Calculate(new double[] { x, y });
+                            },
                             xmin: Min, xmax: Max, xlen: 100,
                             ymin: Min, ymax: Max, ylen: 100,
                             colormap: Colormaps.ILNumerics
                         );
 
-            //surface.Wireframe.Limits.AllowZeroVolume = true;
-            //surface.Wireframe.Positions.Update(5, 1, new float[] { 1, 1, 0 });
             plotCube.Add(surface);
         }
 
@@ -110,19 +114,6 @@ namespace BIA_Functions
 
             int i = 0;
 
-            int cnt = 0;
-            var j = surface.Wireframe.Positions.DataCount - 1;
-            while (j >= 0)
-            {
-                var v = surface.Wireframe.Positions.GetPositionAt(j);
-                if (v.X % 1 == 0 && v.Y % 1 == 0)
-                {
-                    cnt++;
-                }
-
-                j--;
-            }
-
             while (randomPointsIndex.Count != NumberOfIndividuals)
             {
                 var index = random.Next(0, surface.Wireframe.Positions.DataCount - 1);
@@ -131,14 +122,6 @@ namespace BIA_Functions
                     randomPointsIndex.Add(index);
                     var vector = surface.Wireframe.Positions.GetPositionAt(index);
                     var individual = new Individual { Id = i, X = vector.X, Y = vector.Y, Fitness = vector.Z };
-
-                    if (OnlyIntegers)
-                    {
-                        individual.X = (float)Math.Round(individual.X);
-                        individual.Y = (float)Math.Round(individual.Y);
-                        individual.Fitness = (float)Math.Round(individual.Fitness);
-                    }
-
                     Individuals.Add(individual);
                     points.Positions.Update(i++, 1, new float[] { individual.X, individual.Y, individual.Fitness });
                 }
