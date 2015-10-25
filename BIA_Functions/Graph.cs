@@ -53,7 +53,9 @@ namespace BIA_Functions
                             (x, y) =>
                             {
                                 if (OnlyIntegers)
-                                    return (float)Math.Round(Calculate(new double[] { x, y }));
+                                    //return (float)Math.Round(Calculate(new double[] { x, y }));
+                                    //return Calculate(new double[] { Math.Round(x), Math.Round(x) });
+                                    return Calculate(new double[] { x, y });
                                 else
                                     return Calculate(new double[] { x, y });
                             },
@@ -67,7 +69,24 @@ namespace BIA_Functions
 
         public void SetIndividuals()
         {
-            GenerateIndividuals(surface);
+            //GenerateIndividuals(surface);
+
+            Random random = new Random();
+            for (int i = 0; i < NumberOfIndividuals; i++)
+            {
+                var x = (float)NextDouble(random, Min, Max);
+                var y = (float)NextDouble(random, Min, Max);
+
+                TestFunctions testFunctions = new TestFunctions();
+                var z = RealizeMethod(new double[] { x, y });
+
+                if (OnlyIntegers)
+                    Individuals.Add(new Individual { Id = i, X = (float)Math.Round(x), Y = (float)Math.Round(y), Fitness = z });
+                else
+                    Individuals.Add(new Individual { Id = i, X = x, Y = y, Fitness = z });
+
+                points.Positions.Update(i, 1, new float[] { x, y, z });
+            }
 
             for (int i = 0; i < Individuals.Count; i++)
             {
@@ -102,30 +121,45 @@ namespace BIA_Functions
 
         private float Calculate(double[] x)
         {
-            var returnedValue = MethodInfo.Invoke(testFunctions, new object[] { x });
-
-            return Convert.ToSingle(returnedValue);
+            return RealizeMethod(x);
         }
 
-        private void GenerateIndividuals(ILSurface surface)
+        private double NextDouble(Random rng, double min, double max)
         {
-            Random random = new Random();
-            List<int> randomPointsIndex = new List<int>();
-
-            int i = 0;
-
-            while (randomPointsIndex.Count != NumberOfIndividuals)
-            {
-                var index = random.Next(0, surface.Wireframe.Positions.DataCount - 1);
-                if (!randomPointsIndex.Contains(index))
-                {
-                    randomPointsIndex.Add(index);
-                    var vector = surface.Wireframe.Positions.GetPositionAt(index);
-                    var individual = new Individual { Id = i, X = vector.X, Y = vector.Y, Fitness = vector.Z };
-                    Individuals.Add(individual);
-                    points.Positions.Update(i++, 1, new float[] { individual.X, individual.Y, individual.Fitness });
-                }
-            }
+            return min + (rng.NextDouble() * (max - min));
         }
+
+        private float RealizeMethod(double[] x)
+        {
+            return Convert.ToSingle(MethodInfo.Invoke(testFunctions, new object[] { x }));
+        }
+
+        //private void GenerateIndividuals(ILSurface surface)
+        //{
+        //    Random random = new Random();
+        //    List<int> randomPointsIndex = new List<int>();
+
+        //    int i = 0;
+
+        //    while (randomPointsIndex.Count != NumberOfIndividuals)
+        //    {
+        //        var index = random.Next(0, surface.Wireframe.Positions.DataCount - 1);
+        //        if (!randomPointsIndex.Contains(index))
+        //        {
+        //            randomPointsIndex.Add(index);
+        //            var vector = surface.Wireframe.Positions.GetPositionAt(index);
+        //            var individual = new Individual { Id = i, X = vector.X, Y = vector.Y, Fitness = vector.Z };
+
+        //            if (OnlyIntegers)
+        //            {
+        //                individual.X = (float)Math.Round(individual.X);
+        //                individual.Y = (float)Math.Round(individual.Y);
+        //            }
+
+        //            Individuals.Add(individual);
+        //            points.Positions.Update(i++, 1, new float[] { individual.X, individual.Y, individual.Fitness });
+        //        }
+        //    }
+        //}
     }
 }
