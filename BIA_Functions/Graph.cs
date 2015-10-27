@@ -81,9 +81,13 @@ namespace BIA_Functions
                 var z = RealizeMethod(new double[] { x, y });
 
                 if (OnlyIntegers)
-                    Individuals.Add(new Individual { Id = i, X = (float)Math.Round(x), Y = (float)Math.Round(y), Fitness = z });
-                else
-                    Individuals.Add(new Individual { Id = i, X = x, Y = y, Fitness = z });
+                {
+                    x = (float)Math.Round(x);
+                    y = (float)Math.Round(y);
+                    z = RealizeMethod(new double[] { x, y });
+                }
+
+                Individuals.Add(new Individual { Id = i, X = x, Y = y, Fitness = z });
 
                 points.Positions.Update(i, 1, new float[] { x, y, z });
             }
