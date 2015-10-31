@@ -8,6 +8,12 @@ using System.Reflection;
 
 namespace BIA_Functions
 {
+    internal enum Algorithms
+    {
+        None,
+        BlindSearch
+    }
+
     internal class Graph
     {
         private float Min { get; set; }
@@ -24,18 +30,32 @@ namespace BIA_Functions
 
         public List<Individual> Individuals { get; private set; }
 
+        public Algorithms Algorithm { get; private set; }
+
         private ILScene scene;
         private ILPoints points;
         private ILSurface surface;
         private ILPlotCube plotCube;
+        private Individual bestIndividual;
 
-        public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, MethodInfo methodInfo)
+        public Graph()
+        {
+            //Individuals = new List<Individual>();
+        }
+
+        public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, Algorithms algorithm, MethodInfo methodInfo)
         {
             Min = min;
             Max = max;
             MethodInfo = methodInfo;
             NumberOfIndividuals = numberOfIndividuals;
             OnlyIntegers = onlyIntegers;
+            Algorithm = algorithm;
+
+            if (Individuals != null && Individuals.Any())
+            {
+                bestIndividual = GetBestIndividual();
+            }
 
             Individuals = new List<Individual>();
         }
@@ -52,12 +72,7 @@ namespace BIA_Functions
             surface = new ILSurface(
                             (x, y) =>
                             {
-                                if (OnlyIntegers)
-                                    //return (float)Math.Round(Calculate(new double[] { x, y }));
-                                    //return Calculate(new double[] { Math.Round(x), Math.Round(x) });
-                                    return Calculate(new double[] { x, y });
-                                else
-                                    return Calculate(new double[] { x, y });
+                                return Calculate(new double[] { x, y });
                             },
                             xmin: Min, xmax: Max, xlen: 100,
                             ymin: Min, ymax: Max, ylen: 100,
@@ -71,34 +86,28 @@ namespace BIA_Functions
         {
             //GenerateIndividuals(surface);
 
-            Random random = new Random();
-            for (int i = 0; i < NumberOfIndividuals; i++)
+            switch (Algorithm)
             {
-                var x = (float)NextDouble(random, Min, Max);
-                var y = (float)NextDouble(random, Min, Max);
+                case Algorithms.None:
+                case Algorithms.BlindSearch:
+                    NextIndividuals();
+                    break;
 
-                TestFunctions testFunctions = new TestFunctions();
-                var z = RealizeMethod(new double[] { x, y });
-
-                if (OnlyIntegers)
-                {
-                    x = (float)Math.Round(x);
-                    y = (float)Math.Round(y);
-                    z = RealizeMethod(new double[] { x, y });
-                }
-
-                Individuals.Add(new Individual { Id = i, X = x, Y = y, Fitness = z });
-
-                points.Positions.Update(i, 1, new float[] { x, y, z });
-            }
-
-            for (int i = 0; i < Individuals.Count; i++)
-            {
-                points.Colors.Update(i, Color.Black);
+                default:
+                    break;
             }
 
             if (Individuals.Any())
             {
+                var max = Individuals.Max(m => m.Z);
+                var min = Individuals.Min(m => m.Z);
+
+                for (int i = 0; i < Individuals.Count; i++)
+                {
+                    Individuals[i].Fitness = (float)AlgFunctions.Fitness(Individuals[i].Z, min, max);
+                    points.Colors.Update(i, Color.Black);
+                }
+
                 plotCube.Add(points);
             }
         }
@@ -116,11 +125,62 @@ namespace BIA_Functions
             points.Configure();
         }
 
+        private void NextIndividuals()
+        {
+            int count = NumberOfIndividuals;
+
+            if (Algorithm == Algorithms.BlindSearch)
+            {
+                //bestIndividual.Fitness = RealizeMethod(new double[] { bestIndividual.X, bestIndividual.X });
+                bestIndividual.Id = count - 1;
+                Individuals.Add(bestIndividual);
+                count = NumberOfIndividuals - 1;
+                points.Positions.Update(count, 1, new float[] { bestIndividual.X, bestIndividual.Y, bestIndividual.Z });
+            }
+
+            Random random = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                var x = (float)NextDouble(random, Min, Max);
+                var y = (float)NextDouble(random, Min, Max);
+
+                if (OnlyIntegers)
+                {
+                    x = (float)Math.Round(x);
+                    y = (float)Math.Round(y);
+                }
+
+                TestFunctions testFunctions = new TestFunctions();
+                var z = RealizeMethod(new double[] { x, y });
+
+                Individual individual = new Individual { Id = i, X = x, Y = y, Z = z };
+                Individuals.Add(individual);
+                points.Positions.Update(i, 1, new float[] { individual.X, individual.Y, individual.Z });
+            }
+        }
+
+        private Individual GetBestIndividual()
+        {
+            return Individuals.Aggregate((i1, i2) => i1.Fitness > i2.Fitness ? i1 : i2);
+        }
+
         public ILScene GetScene()
         {
             scene.Camera.Add(plotCube);
 
             return scene;
+        }
+
+        private double Fitness(double x)
+        {
+            if (x >= 0)
+            {
+                return 1 / (1 + x);
+            }
+            else
+            {
+                return 1 + Math.Abs(x);
+            }
         }
 
         private float Calculate(double[] x)

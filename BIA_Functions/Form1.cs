@@ -15,6 +15,8 @@ namespace BIA_Functions
 
         private Form1 form = null;
 
+        private Algorithms algorithm = Algorithms.None;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace BIA_Functions
 
         private void ilPanel1_Load(object sender, EventArgs e)
         {
-            PrintGraph();
+            //PrintGraph();
         }
 
         private void PrintGraph()
@@ -34,6 +36,7 @@ namespace BIA_Functions
                 TextToFloat(tb_max.Text),
                 Convert.ToInt32(individualsNo.Text),
                 chbOnlyIntegers.Checked,
+                algorithm,
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
 
             graph.SetSurface();
@@ -52,15 +55,6 @@ namespace BIA_Functions
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem.ToString() == "Multipurpose optimization problem - parent borderline")
-            {
-                BorderLineValues();
-            }
-            else
-            {
-                DefaultFunctionValues();
-            }
-
             form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
             PrintGraph();
         }
@@ -80,26 +74,17 @@ namespace BIA_Functions
             }
 
             comboBox1.SelectedIndex = 0;
+
+            foreach (var alg in Enum.GetValues(typeof(Algorithms)))
+            {
+                AlgorithmsSelect.Items.Add(alg.ToString());
+                AlgorithmsSelect.SelectedIndex = 0;
+            }
         }
 
         private float TextToFloat(string text)
         {
             return Convert.ToSingle(text);
-        }
-
-        private void DefaultFunctionValues()
-        {
-            tb_min.Text = "-2";
-            tb_max.Text = "2";
-        }
-
-        private void BorderLineValues()
-        {
-            tb_min.Text = "0";
-            tb_max.Text = "1,25";
-
-            //tb_ymin.Text = "1";
-            //tb_ymax.Text = "0,999";
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -121,6 +106,16 @@ namespace BIA_Functions
         {
             ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
             ilPanel1.Refresh();
+        }
+
+        private void stepBtn_Click(object sender, EventArgs e)
+        {
+            PrintGraph();
+        }
+
+        private void AlgorithmsSelect_SelectedValueChanged(object sender, EventArgs e)
+        {
+            algorithm = (Algorithms)Enum.Parse(typeof(Algorithms), AlgorithmsSelect.SelectedItem.ToString());
         }
     }
 }

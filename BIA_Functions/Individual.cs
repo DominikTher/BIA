@@ -10,6 +10,8 @@ namespace BIA_Functions
 
         public float Y { get; set; }
 
-        public float Fitness { get; set; } // Fitness is equal to Z in 4th protocol
+        public float Z { get; set; }
+
+        public float Fitness { get; set; }
     }
 }

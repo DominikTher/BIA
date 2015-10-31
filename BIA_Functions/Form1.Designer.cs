@@ -42,9 +42,13 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.chbOnlyIntegers = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.stepBtn = new System.Windows.Forms.Button();
+            this.AlgorithmsSelect = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -97,7 +101,7 @@
             this.tb_min.Name = "tb_min";
             this.tb_min.Size = new System.Drawing.Size(94, 20);
             this.tb_min.TabIndex = 7;
-            this.tb_min.Text = "-2";
+            this.tb_min.Text = "-4";
             // 
             // tb_max
             // 
@@ -105,14 +109,14 @@
             this.tb_max.Name = "tb_max";
             this.tb_max.Size = new System.Drawing.Size(86, 20);
             this.tb_max.TabIndex = 9;
-            this.tb_max.Text = "2";
+            this.tb_max.Text = "4";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(214, 159);
+            this.button1.Location = new System.Drawing.Point(214, 267);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 32);
             this.button1.TabIndex = 11;
@@ -177,11 +181,42 @@
             this.chbOnlyIntegers.TabIndex = 18;
             this.chbOnlyIntegers.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.stepBtn);
+            this.groupBox2.Controls.Add(this.AlgorithmsSelect);
+            this.groupBox2.Location = new System.Drawing.Point(15, 147);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(285, 89);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Algorithms";
+            // 
+            // stepBtn
+            // 
+            this.stepBtn.Location = new System.Drawing.Point(6, 46);
+            this.stepBtn.Name = "stepBtn";
+            this.stepBtn.Size = new System.Drawing.Size(75, 23);
+            this.stepBtn.TabIndex = 4;
+            this.stepBtn.Text = "Step";
+            this.stepBtn.UseVisualStyleBackColor = true;
+            this.stepBtn.Click += new System.EventHandler(this.stepBtn_Click);
+            // 
+            // AlgorithmsSelect
+            // 
+            this.AlgorithmsSelect.FormattingEnabled = true;
+            this.AlgorithmsSelect.Location = new System.Drawing.Point(6, 19);
+            this.AlgorithmsSelect.Name = "AlgorithmsSelect";
+            this.AlgorithmsSelect.Size = new System.Drawing.Size(273, 21);
+            this.AlgorithmsSelect.TabIndex = 1;
+            this.AlgorithmsSelect.SelectedValueChanged += new System.EventHandler(this.AlgorithmsSelect_SelectedValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1063, 518);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chbOnlyIntegers);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -198,6 +233,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +254,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chbOnlyIntegers;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button stepBtn;
+        private System.Windows.Forms.ComboBox AlgorithmsSelect;
     }
 }
 
