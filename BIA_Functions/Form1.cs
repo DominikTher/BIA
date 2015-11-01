@@ -2,6 +2,7 @@
 using ILNumerics.Drawing.Plotting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -26,7 +27,6 @@ namespace BIA_Functions
 
         private void ilPanel1_Load(object sender, EventArgs e)
         {
-            //PrintGraph();
         }
 
         private void PrintGraph()
@@ -44,7 +44,7 @@ namespace BIA_Functions
             ilPanel1.Scene = graph.GetScene();
             RefreshGraph();
 
-            dataGridView1.DataSource = graph.Individuals;
+            dataGridView1.DataSource = graph.Individuals.OrderByDescending(i => i.Fitness).ToList();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
@@ -55,6 +55,12 @@ namespace BIA_Functions
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
+            individualsNo.Text = "0";
+            algorithm = Algorithms.None;
+            if (AlgorithmsSelect.Items.Count > 0)
+            {
+                AlgorithmsSelect.SelectedIndex = 0;
+            }
             form.Text = "BIA - " + comboBox1.SelectedItem.ToString();
             PrintGraph();
         }

@@ -38,11 +38,6 @@ namespace BIA_Functions
         private ILPlotCube plotCube;
         private Individual bestIndividual;
 
-        public Graph()
-        {
-            //Individuals = new List<Individual>();
-        }
-
         public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, Algorithms algorithm, MethodInfo methodInfo)
         {
             Min = min;
@@ -84,8 +79,6 @@ namespace BIA_Functions
 
         public void SetIndividuals()
         {
-            //GenerateIndividuals(surface);
-
             switch (Algorithm)
             {
                 case Algorithms.None:
@@ -131,7 +124,6 @@ namespace BIA_Functions
 
             if (Algorithm == Algorithms.BlindSearch)
             {
-                //bestIndividual.Fitness = RealizeMethod(new double[] { bestIndividual.X, bestIndividual.X });
                 bestIndividual.Id = count - 1;
                 Individuals.Add(bestIndividual);
                 count = NumberOfIndividuals - 1;
@@ -171,18 +163,6 @@ namespace BIA_Functions
             return scene;
         }
 
-        private double Fitness(double x)
-        {
-            if (x >= 0)
-            {
-                return 1 / (1 + x);
-            }
-            else
-            {
-                return 1 + Math.Abs(x);
-            }
-        }
-
         private float Calculate(double[] x)
         {
             return RealizeMethod(x);
@@ -197,33 +177,5 @@ namespace BIA_Functions
         {
             return Convert.ToSingle(MethodInfo.Invoke(testFunctions, new object[] { x }));
         }
-
-        //private void GenerateIndividuals(ILSurface surface)
-        //{
-        //    Random random = new Random();
-        //    List<int> randomPointsIndex = new List<int>();
-
-        //    int i = 0;
-
-        //    while (randomPointsIndex.Count != NumberOfIndividuals)
-        //    {
-        //        var index = random.Next(0, surface.Wireframe.Positions.DataCount - 1);
-        //        if (!randomPointsIndex.Contains(index))
-        //        {
-        //            randomPointsIndex.Add(index);
-        //            var vector = surface.Wireframe.Positions.GetPositionAt(index);
-        //            var individual = new Individual { Id = i, X = vector.X, Y = vector.Y, Fitness = vector.Z };
-
-        //            if (OnlyIntegers)
-        //            {
-        //                individual.X = (float)Math.Round(individual.X);
-        //                individual.Y = (float)Math.Round(individual.Y);
-        //            }
-
-        //            Individuals.Add(individual);
-        //            points.Positions.Update(i++, 1, new float[] { individual.X, individual.Y, individual.Fitness });
-        //        }
-        //    }
-        //}
     }
 }
