@@ -11,14 +11,19 @@ namespace BIA_Functions
     internal enum Algorithms
     {
         None,
-        BlindSearch
+        BlindSearch,
+        SimulatedAnnealing
     }
 
     internal class Graph
     {
         private float Min { get; set; }
-
         private float Max { get; set; }
+
+        private float newXmin { get; set; }
+        private float newXmax { get; set; }
+        private float newYmin { get; set; }
+        private float newYmax { get; set; }
 
         private MethodInfo MethodInfo { get; set; }
 
@@ -32,27 +37,28 @@ namespace BIA_Functions
 
         public Algorithms Algorithm { get; private set; }
 
+        private SimulatedAnnealing simulatedAnnealing;
+
         private ILScene scene;
         private ILPoints points;
         private ILSurface surface;
         private ILPlotCube plotCube;
         private Individual bestIndividual;
 
+        public Graph()
+        {
+            Individuals = new List<Individual>();
+            bestIndividual = null;
+        }
+
         public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, Algorithms algorithm, MethodInfo methodInfo)
         {
-            Min = min;
-            Max = max;
+            newYmin = newXmin = Min = min;
+            newYmax = newXmax = Max = max;
             MethodInfo = methodInfo;
             NumberOfIndividuals = numberOfIndividuals;
             OnlyIntegers = onlyIntegers;
             Algorithm = algorithm;
-
-            if (Individuals != null && Individuals.Any())
-            {
-                bestIndividual = GetBestIndividual();
-            }
-
-            Individuals = new List<Individual>();
         }
 
         public void SetSurface()
@@ -82,14 +88,36 @@ namespace BIA_Functions
             switch (Algorithm)
             {
                 case Algorithms.None:
-                case Algorithms.BlindSearch:
-                    NextIndividuals();
+                    bestIndividual = null;
+                    Reset();
                     break;
 
-                default:
+                case Algorithms.BlindSearch:
+                    bestIndividual = GetBestIndividual();
+                    break;
+
+                case Algorithms.SimulatedAnnealing:
+                    simulatedAnnealing.Set(Individuals, Min, Max);
+                    bestIndividual = simulatedAnnealing.Step();
+                    newXmin = simulatedAnnealing.newXmin;
+                    newXmax = simulatedAnnealing.newXmax;
+                    newYmin = simulatedAnnealing.newYmin;
+                    newYmax = simulatedAnnealing.newYmax;
                     break;
             }
 
+            Individuals = new List<Individual>();
+            NextIndividuals();
+            ToFitness();
+        }
+
+        private void Reset()
+        {
+            simulatedAnnealing = new SimulatedAnnealing();
+        }
+
+        public void ToFitness()
+        {
             if (Individuals.Any())
             {
                 var max = Individuals.Max(m => m.Z);
@@ -122,19 +150,19 @@ namespace BIA_Functions
         {
             int count = NumberOfIndividuals;
 
-            if (Algorithm == Algorithms.BlindSearch)
+            if (bestIndividual != null)
             {
-                bestIndividual.Id = count - 1;
-                Individuals.Add(bestIndividual);
                 count = NumberOfIndividuals - 1;
+                bestIndividual.Id = count;
+                Individuals.Add(bestIndividual);
                 points.Positions.Update(count, 1, new float[] { bestIndividual.X, bestIndividual.Y, bestIndividual.Z });
             }
 
             Random random = new Random();
             for (int i = 0; i < count; i++)
             {
-                var x = (float)NextDouble(random, Min, Max);
-                var y = (float)NextDouble(random, Min, Max);
+                var x = (float)NextDouble(random, newXmin, newXmax);
+                var y = (float)NextDouble(random, newYmin, newYmax);
 
                 if (OnlyIntegers)
                 {

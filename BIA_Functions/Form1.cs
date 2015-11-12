@@ -1,6 +1,4 @@
-﻿using ILNumerics.Drawing;
-using ILNumerics.Drawing.Plotting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -50,6 +48,7 @@ namespace BIA_Functions
 
         private void button1_Click(object sender, EventArgs e)
         {
+            algorithm = Algorithms.None;
             PrintGraph();
         }
 
@@ -97,7 +96,7 @@ namespace BIA_Functions
         {
             DataGridView dataGridView = sender as DataGridView;
 
-            if (dataGridView.CurrentRow.Selected)
+            if (dataGridView.CurrentRow != null && dataGridView.CurrentRow.Selected)
             {
                 int rowindex = dataGridView.CurrentCell.RowIndex;
                 var id = dataGridView.Rows[rowindex].Cells[0].Value.ToString();
@@ -116,10 +115,16 @@ namespace BIA_Functions
 
         private void stepBtn_Click(object sender, EventArgs e)
         {
+            SetAlg();
             PrintGraph();
         }
 
         private void AlgorithmsSelect_SelectedValueChanged(object sender, EventArgs e)
+        {
+            SetAlg();
+        }
+
+        private void SetAlg()
         {
             algorithm = (Algorithms)Enum.Parse(typeof(Algorithms), AlgorithmsSelect.SelectedItem.ToString());
         }
