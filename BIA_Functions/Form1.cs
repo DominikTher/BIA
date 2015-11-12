@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ILNumerics.Drawing;
+using ILNumerics.Drawing.Plotting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -109,7 +111,10 @@ namespace BIA_Functions
 
         private void RefreshGraph()
         {
-            ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
+            if (twoD.Checked)
+            {
+                ilPanel1.Scene.First<ILPlotCube>().Rotation = Matrix4.Rotation(new Vector3(1f, 0.23f, 1), 0.7f);
+            }
             ilPanel1.Refresh();
         }
 

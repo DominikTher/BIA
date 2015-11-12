@@ -45,6 +45,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.stepBtn = new System.Windows.Forms.Button();
             this.AlgorithmsSelect = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.twoD = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -211,11 +213,31 @@
             this.AlgorithmsSelect.TabIndex = 1;
             this.AlgorithmsSelect.SelectedValueChanged += new System.EventHandler(this.AlgorithmsSelect_SelectedValueChanged);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 277);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "3D:";
+            // 
+            // twoD
+            // 
+            this.twoD.AutoSize = true;
+            this.twoD.Location = new System.Drawing.Point(43, 277);
+            this.twoD.Name = "twoD";
+            this.twoD.Size = new System.Drawing.Size(15, 14);
+            this.twoD.TabIndex = 21;
+            this.twoD.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1063, 518);
+            this.Controls.Add(this.twoD);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chbOnlyIntegers);
             this.Controls.Add(this.label2);
@@ -257,6 +279,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button stepBtn;
         private System.Windows.Forms.ComboBox AlgorithmsSelect;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox twoD;
     }
 }
 

@@ -12,7 +12,8 @@ namespace BIA_Functions
     {
         None,
         BlindSearch,
-        SimulatedAnnealing
+        SimulatedAnnealing,
+        DifferentialEvolution
     }
 
     internal class Graph
@@ -38,6 +39,7 @@ namespace BIA_Functions
         public Algorithms Algorithm { get; private set; }
 
         private SimulatedAnnealing simulatedAnnealing;
+        private DifferentialEvolution differentialEvolution;
 
         private ILScene scene;
         private ILPoints points;
@@ -90,10 +92,14 @@ namespace BIA_Functions
                 case Algorithms.None:
                     bestIndividual = null;
                     Reset();
+                    Individuals.Clear();
+                    NextIndividuals();
                     break;
 
                 case Algorithms.BlindSearch:
                     bestIndividual = GetBestIndividual();
+                    Individuals.Clear();
+                    NextIndividuals();
                     break;
 
                 case Algorithms.SimulatedAnnealing:
@@ -103,17 +109,33 @@ namespace BIA_Functions
                     newXmax = simulatedAnnealing.newXmax;
                     newYmin = simulatedAnnealing.newYmin;
                     newYmax = simulatedAnnealing.newYmax;
+                    Individuals.Clear();
+                    NextIndividuals();
+                    break;
+
+                case Algorithms.DifferentialEvolution:
+                    differentialEvolution.Step(Individuals, MethodInfo, Min, Max);
+                    Individuals.Clear();
+                    Individuals = differentialEvolution.newIndividuals;
                     break;
             }
 
-            Individuals = new List<Individual>();
-            NextIndividuals();
+            if (Individuals.Any())
+            {
+                var i = 0;
+                foreach (var item in Individuals)
+                {
+                    UpdatePoints(i++, item);
+                }
+            }
+
             ToFitness();
         }
 
         private void Reset()
         {
             simulatedAnnealing = new SimulatedAnnealing();
+            differentialEvolution = new DifferentialEvolution();
         }
 
         public void ToFitness()
@@ -155,7 +177,8 @@ namespace BIA_Functions
                 count = NumberOfIndividuals - 1;
                 bestIndividual.Id = count;
                 Individuals.Add(bestIndividual);
-                points.Positions.Update(count, 1, new float[] { bestIndividual.X, bestIndividual.Y, bestIndividual.Z });
+                //UpdatePoints(count, bestIndividual);
+                //points.Positions.Update(count, 1, new float[] { bestIndividual.X, bestIndividual.Y, bestIndividual.Z });
             }
 
             Random random = new Random();
@@ -175,8 +198,14 @@ namespace BIA_Functions
 
                 Individual individual = new Individual { Id = i, X = x, Y = y, Z = z };
                 Individuals.Add(individual);
-                points.Positions.Update(i, 1, new float[] { individual.X, individual.Y, individual.Z });
+                //UpdatePoints(i, individual);
+                //points.Positions.Update(i, 1, new float[] { individual.X, individual.Y, individual.Z });
             }
+        }
+
+        private void UpdatePoints(int startColumn, Individual individual)
+        {
+            points.Positions.Update(startColumn, 1, new float[] { individual.X, individual.Y, individual.Z });
         }
 
         private Individual GetBestIndividual()
