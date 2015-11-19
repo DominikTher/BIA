@@ -13,7 +13,8 @@ namespace BIA_Functions
         None,
         BlindSearch,
         SimulatedAnnealing,
-        DifferentialEvolution
+        DifferentialEvolution,
+        SOMA
     }
 
     internal class Graph
@@ -40,6 +41,7 @@ namespace BIA_Functions
 
         private SimulatedAnnealing simulatedAnnealing;
         private DifferentialEvolution differentialEvolution;
+        private SOMA soma;
 
         private ILScene scene;
         private ILPoints points;
@@ -118,6 +120,12 @@ namespace BIA_Functions
                     Individuals.Clear();
                     Individuals = differentialEvolution.newIndividuals;
                     break;
+
+                case Algorithms.SOMA:
+                    soma.Step(Individuals, MethodInfo, Min, Max);
+                    Individuals.Clear();
+                    Individuals = soma.newIndividuals;
+                    break;
             }
 
             if (Individuals.Any())
@@ -136,6 +144,7 @@ namespace BIA_Functions
         {
             simulatedAnnealing = new SimulatedAnnealing();
             differentialEvolution = new DifferentialEvolution();
+            soma = new SOMA(200);
         }
 
         public void ToFitness()
