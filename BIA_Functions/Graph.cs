@@ -144,7 +144,7 @@ namespace BIA_Functions
         {
             simulatedAnnealing = new SimulatedAnnealing();
             differentialEvolution = new DifferentialEvolution();
-            soma = new SOMA(200);
+            soma = new SOMA(20);
         }
 
         public void ToFitness()
