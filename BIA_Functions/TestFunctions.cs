@@ -251,8 +251,8 @@ namespace BIA_Functions
             return value;
         }
 
-        // TODO: Tea? :D
-        [FunctionName("df")]
+        // TODO:
+        [FunctionName("Problém dělení čaje")]
         public double deleni(double[] x)
         {
             var g = 1;
