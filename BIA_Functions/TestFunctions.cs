@@ -251,20 +251,15 @@ namespace BIA_Functions
             return value;
         }
 
-        // TODO:
         [FunctionName("Problém dělení čaje")]
         public double deleni(double[] x)
         {
-            var g = 1;
+            var g = -100;
 
-            if (10 * x[0] + 6 * x[1] + 5 * 0 <= 2850)
+            if (((10 * x[0]) + (6 * x[1]) + (5 * 0)) <= 2850
+                && ((4 * x[1]) + (5 * 0)) <= 1380)
             {
                 g = 1;
-            }
-
-            if (4 * x[1] + 5 * 0 <= 1380 == false)
-            {
-                g = -100;
             }
 
             var value = (-1 * (2 * x[0] + 3 * x[1] + 2 * 0)) * g;
@@ -327,13 +322,12 @@ namespace BIA_Functions
             return -1 * value;
         }
 
-        // TODO:
         [FunctionName("Pseudo-Dirakova funkce")]
         public double PseudoDirakovaFunkce(double[] x)
         {
-            var value = 0.0;
-            var s = 0.0;
-            var o = new double[2];
+            var value = 1.0;
+            var s = 3.0;
+            var o = new double[2] { 1, 1 };
 
             for (int i = 0; i < x.Length; i++)
             {

@@ -22,6 +22,9 @@ namespace BIA_Functions
         private float Min { get; set; }
         private float Max { get; set; }
 
+        private float YMin { get; set; }
+        private float YMax { get; set; }
+
         private float newXmin { get; set; }
         private float newXmax { get; set; }
         private float newYmin { get; set; }
@@ -55,10 +58,17 @@ namespace BIA_Functions
             bestIndividual = null;
         }
 
-        public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, Algorithms algorithm, MethodInfo methodInfo)
+        public void Set(float min, float max, int numberOfIndividuals, bool onlyIntegers, Algorithms algorithm, MethodInfo methodInfo, float ymin = 0, float ymax = 0)
         {
-            newYmin = newXmin = Min = min;
-            newYmax = newXmax = Max = max;
+            newYmin = newXmin = Min = YMin = min;
+            newYmax = newXmax = Max = YMax = max;
+
+            if (ymin != 0 && ymax != 0)
+            {
+                YMin = ymin;
+                YMax = ymax;
+            }
+
             MethodInfo = methodInfo;
             NumberOfIndividuals = numberOfIndividuals;
             OnlyIntegers = onlyIntegers;
@@ -80,7 +90,7 @@ namespace BIA_Functions
                                 return Calculate(new double[] { x, y });
                             },
                             xmin: Min, xmax: Max, xlen: 100,
-                            ymin: Min, ymax: Max, ylen: 100,
+                            ymin: YMin, ymax: YMax, ylen: 100,
                             colormap: Colormaps.ILNumerics
                         );
 

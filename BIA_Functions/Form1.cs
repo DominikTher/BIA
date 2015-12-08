@@ -31,13 +31,28 @@ namespace BIA_Functions
 
         private void PrintGraph()
         {
-            graph.Set(
+            if (comboBox1.SelectedItem.ToString() == "Problém dělení čaje")
+            {
+                graph.Set(
+                70,
+                80,
+                Convert.ToInt32(individualsNo.Text),
+                chbOnlyIntegers.Checked,
+                algorithm,
+                testFunctionsNames[comboBox1.SelectedItem.ToString()],
+                340,
+                350);
+            }
+            else
+            {
+                graph.Set(
                 TextToFloat(tb_min.Text),
                 TextToFloat(tb_max.Text),
                 Convert.ToInt32(individualsNo.Text),
                 chbOnlyIntegers.Checked,
                 algorithm,
                 testFunctionsNames[comboBox1.SelectedItem.ToString()]);
+            }
 
             graph.SetSurface();
             graph.SetIndividuals();
